@@ -34,3 +34,47 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+
+rag-nextjs-app/
+├── 📁 app/                    # Next.js App Router
+│   ├── layout.jsx            # Root layout
+│   ├── page.jsx              # Home page (Hero, Features, CTA)
+│   ├── globals.css           # Tailwind styles
+│   └── chat/
+│       └── page.jsx          # Chat interface page
+│
+├── 📁 components/            # Reusable UI components
+│   ├── Navbar.jsx           # Navigation bar with logo
+│   ├── Hero.jsx             # Landing page hero
+│   ├── Features.jsx         # 6 feature cards
+│   └── ChatInterface.jsx    # Interactive chat UI
+│
+├── 📁 actions/              # Server Actions (no API routes!)
+│   ├── indexing.js         # PDF indexing action
+│   └── chat.js             # Chat query action
+│
+├── 📁 lib/                  # Shared utilities
+│   └── config.js           # AI model configs
+│
+├── 📁 scripts/              # CLI scripts
+│   └── index-pdf.js        # Standalone indexing
+│
+├── 📁 public/               # Static files
+│   └── README.txt          # Place Node.pdf here!
+│
+├── Config Files
+│   ├── package.json        # Dependencies
+│   ├── .env.local         # API keys (fill this!)
+│   ├── next.config.js     # Next.js config
+│   ├── tailwind.config.js # Tailwind theme
+│   └── .gitignore         # Git rules
+│
+└── Documentation
+    ├── START_HERE.md      # 👈 Read this first!
+    ├── README.md          # Full documentation
+    ├── SETUP.md           # Quick setup guide
+    └── FILE_STRUCTURE.md  # Detailed structure
