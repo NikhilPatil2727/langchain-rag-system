@@ -17,11 +17,14 @@
     "@langchain/pinecone": "^1.0.1",
     "@langchain/textsplitters": "^1.0.1",
     "@pinecone-database/pinecone": "^5.1.2",
-    "dotenv": "^17.2.4",
+    "dotenv": "^16.6.1",
+    "framer-motion": "^12.34.2",
     "next": "16.1.6",
     "pdf-parse": "^1.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-intersection-observer": "^10.0.3",
+    "react-type-animation": "^3.2.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
