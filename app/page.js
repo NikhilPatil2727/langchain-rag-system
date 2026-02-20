@@ -15,23 +15,23 @@ const ArrowIcon = () => (
 const steps = [
   {
     number: '01',
-    title: 'Paper Ingestion',
-    description: 'Upload complex PDFs. Our engine extracts text, tables, and metadata while preserving context.',
+    title: 'Ingestion Phase',
+    description: 'Simply upload your PDF research papers to the system.',
   },
   {
     number: '02',
-    title: 'Semantic Indexing',
-    description: 'Scholarly content is transformed into semantic embeddings, mapping the conceptual landscape of the data.',
+    title: 'Chunking & Vector DB',
+    description: 'The system splits documents into chunks and stores them in a vector database.',
   },
   {
     number: '03',
-    title: 'Evidence Retrieval',
-    description: 'User queries trigger a deep search across the vector space to find the strongest supporting evidence.',
+    title: 'Retrieval & Query',
+    description: 'Just type what you want to know and the system retrieves relevant chunks.',
   },
   {
     number: '04',
-    title: 'Cited Synthesis',
-    description: 'AI generates a response grounded in the retrieved text, including source-specific citations for verification.',
+    title: 'Generation Phase',
+    description: 'Get clear answers with direct references based on the retrieved data.',
   },
 ];
 
@@ -47,13 +47,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium bg-indigo-500/10 text-indigo-400 rounded-full mb-4 md:mb-5">
-              Research Workflow
+              4 Simple Steps
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 md:mb-5 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent px-4">
-              The Science of Retrieval
+              How it Works
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-[90%] sm:max-w-[520px] mx-auto px-4">
-              We've optimized every layer of the RAG pipeline to handle the unique structure and terminology of research papers.
+              A straightforward process to get answers from your documents.
             </p>
           </div>
 
@@ -65,7 +65,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="relative p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20 group"
+                className="relative p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20 group cursor-pointer"
               >
                 <div className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 md:mb-6 font-mono text-indigo-600/30 group-hover:text-indigo-500/50 transition-colors">
                   {step.number}
@@ -99,13 +99,13 @@ export default function HomePage() {
             <div className="absolute bottom-0 right-0 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-purple-500/20 blur-[50px] sm:blur-[75px] md:blur-[100px] translate-x-1/2 translate-y-1/2 rounded-full" />
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 sm:mb-6 text-white px-2">
-              End the manual <br className="hidden xs:block sm:hidden" />
+              Ready to <br className="hidden xs:block sm:hidden" />
               <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                literature search.
+                chat with papers?
               </span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-indigo-200/70 mb-6 sm:mb-8 md:mb-10 max-w-[90%] sm:max-w-xl mx-auto px-4">
-              ScholarRAG is the ultimate companion for researchers, students, and academics. Start exploring your local papers now.
+              Try this simple project demo to see how RAG can help you read papers faster.
             </p>
             <motion.div 
               whileHover={{ scale: 1.05 }} 
@@ -116,7 +116,7 @@ export default function HomePage() {
                 href="/chat"
                 className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl sm:rounded-2xl hover:from-indigo-500 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-indigo-500/25"
               >
-                Launch Scholar Assistant 
+                Open Chat 
                 <ArrowIcon />
               </Link>
             </motion.div>
@@ -130,10 +130,10 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-8">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center font-bold text-white text-sm sm:text-base">
-                S
+                R
               </div>
               <span className="font-bold tracking-tight text-white italic text-sm sm:text-base">
-                SCHOLAR RAG
+                PaperInsight
               </span>
             </div>
             
@@ -157,8 +157,8 @@ export default function HomePage() {
             </nav>
 
             <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500">
-              © 2024 ScholarRAG. <br className="block xs:hidden" />
-              Research-first AI retrieval.
+              © 2024 PaperInsight. <br className="block xs:hidden" />
+              Built for simple research paper QA.
             </div>
           </div>
         </div>

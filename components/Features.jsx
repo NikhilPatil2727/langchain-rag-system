@@ -44,45 +44,45 @@ const FastIcon = () => (
 const features = [
   {
     Icon: SearchIcon,
-    title: 'Precision Retrieval',
-    description: 'Find exact methodologies, datasets, and conclusions within thousands of pages of research literature instantly.',
+    title: 'Recursive Chunking',
+    description: 'Documents are precisely split into overlapping chunks to maintain context for retrieval.',
     color: '#6366f1',
     bg: 'rgba(99,102,241,0.1)',
   },
   {
+    Icon: FastIcon,
+    title: 'Vector DB Storage',
+    description: 'High-dimensional embeddings are stored in a vector database for lightning-fast similarity search.',
+    color: '#ec4899',
+    bg: 'rgba(236,72,153,0.1)',
+  },
+  {
     Icon: BrainIcon,
-    title: 'Knowledge Synthesis',
-    description: 'Connect dots across multiple papers to reveal trends, contradictions, and consensus in your field of study.',
+    title: 'Semantic Search',
+    description: 'Queries are matched based on meaning rather than just keywords using advanced embeddings.',
     color: '#8b5cf6',
     bg: 'rgba(139,92,246,0.1)',
   },
   {
     Icon: QuoteIcon,
-    title: 'Automated Citations',
-    description: 'Every statement generated is backlinked to the original source text, ensuring academic integrity and easy fact-checking.',
+    title: 'Grounding & Citations',
+    description: 'Every answer is grounded in retrieved chunks with direct references back to the source.',
     color: '#06b6d4',
     bg: 'rgba(6,182,212,0.1)',
   },
   {
-    Icon: LibraryIcon,
-    title: 'Infinite Library Support',
-    description: 'From single PDFs to entire bibliographies, our system scales to index and search massive academic repositories.',
-    color: '#10b981',
-    bg: 'rgba(16,185,129,0.1)',
-  },
-  {
     Icon: ShieldIcon,
-    title: 'Evidence-Based AI',
-    description: 'Strict RAG implementation prevents hallucinations by forcing the model to only use provided research data.',
+    title: 'RAG Pipeline',
+    description: 'A robust Retrieval-Augmented Generation pipeline prevents hallucinations by using provided data.',
     color: '#f59e0b',
     bg: 'rgba(245,158,11,0.1)',
   },
   {
-    Icon: FastIcon,
-    title: 'Rapid Lit Review',
-    description: 'Reduce literature review time by 80% with semantic search that understands technical jargon and complex concepts.',
-    color: '#ec4899',
-    bg: 'rgba(236,72,153,0.1)',
+    Icon: LibraryIcon,
+    title: 'Multi-PDF Support',
+    description: 'The system can process multiple research papers simultaneously as a single knowledge base.',
+    color: '#10b981',
+    bg: 'rgba(16,185,129,0.1)',
   },
 ];
 
@@ -104,67 +104,67 @@ export default function Features() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section 
-      id="features" 
-      ref={ref} 
+    <section
+      id="features"
+      ref={ref}
       className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
       style={{ background: 'var(--bg-secondary)' }}
     >
       <div className="section-divider" />
-      
+
       {/* Background Gradient - Responsive sizing */}
-      <div 
-        className="absolute top-1/2 left-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[200px] sm:h-[300px] md:h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
-        style={{ 
-          background: 'radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%)', 
-          filter: 'blur(40px) sm:blur-50px md:blur-60px' 
-        }} 
+      <div
+        className="absolute top-1/2 left-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[200px] sm:h-[300px] md:h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%)',
+          filter: 'blur(40px) sm:blur-50px md:blur-60px'
+        }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={inView ? { opacity: 1, y: 0 } : {}} 
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-12 sm:mb-14 md:mb-16 px-4 sm:px-6"
         >
           <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium bg-indigo-500/10 text-indigo-400 rounded-full mb-4 sm:mb-5">
-            Research Capabilities
+            Key Features
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4 md:mb-5 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Master your literature
+            Simple and Powerful
             <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              in record time
+              Research Tools
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-[90%] sm:max-w-[480px] md:max-w-[520px] mx-auto">
-            A purpose-built AI engine designed to handle the complexity
-            and rigor of academic research papers.
+            Everything you need to interact with your research papers
+            without the technical headache.
           </p>
         </motion.div>
 
         {/* Features Grid */}
-        <motion.div 
-          variants={containerVariants} 
-          animate={inView ? 'visible' : 'hidden'} 
+        <motion.div
+          variants={containerVariants}
+          animate={inView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 px-4 sm:px-0"
         >
           {features.map((feature, i) => (
-            <motion.div 
-              key={i} 
-              variants={cardVariants} 
-              className="relative group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20"
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              className="relative group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20 cursor-pointer"
             >
               {/* Icon Box */}
-              <div 
-                className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110" 
+              <div
+                className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110"
                 style={{ background: feature.bg, color: feature.color }}
               >
                 <feature.Icon />
               </div>
-              
+
               {/* Content */}
               <h3 className="text-sm sm:text-base md:text-lg font-semibold mb-2 text-white group-hover:text-indigo-400 transition-colors">
                 {feature.title}
@@ -172,17 +172,17 @@ export default function Features() {
               <p className="text-xs sm:text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors">
                 {feature.description}
               </p>
-              
+
               {/* Accent Dot - Hidden on mobile, visible on larger screens */}
-              <div 
-                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block" 
-                style={{ background: feature.color }} 
+              <div
+                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block"
+                style={{ background: feature.color }}
               />
             </motion.div>
           ))}
         </motion.div>
       </div>
-      
+
       {/* Section Dividers */}
       <div className="section-divider mt-0 absolute bottom-0 left-0 right-0" />
     </section>
