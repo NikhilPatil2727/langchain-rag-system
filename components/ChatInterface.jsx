@@ -114,7 +114,7 @@ const TypingIndicator = () => (
             className="w-2 h-2 rounded-full bg-indigo-400"
           />
         </div>
-        <span className="text-sm text-white/50">Thinking...</span>
+        <span className="text-sm text-white/50">Scholar is thinking...</span>
       </div>
     </div>
   </motion.div>
@@ -227,10 +227,10 @@ export default function ChatInterface() {
               >
 
                 <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
-                  Research Paper QA
+                  Scholar Research System
                 </h1>
                 <p className="text-white/50 max-w-md mx-auto text-base leading-relaxed">
-                  Upload your papers and ask any questions. I'll find the answers for you.
+                  Query your research repository, analyze methodologies, and synthesize findings across multiple papers.
                 </p>
 
                 <QuickActions onSelect={(val) => handleSubmit(null, val)} />
@@ -296,7 +296,7 @@ export default function ChatInterface() {
               </div>
             </div>
             <span className="text-xs text-white/20 font-mono">
-              PaperInsight Project
+              ScholarRAG v1.4.2
             </span>
           </div>
         </div>

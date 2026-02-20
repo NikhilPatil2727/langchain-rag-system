@@ -69,10 +69,11 @@ export default function Navbar() {
       <motion.header
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? 'bg-[#050507]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-          : 'bg-transparent'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#050507]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+            : 'bg-transparent'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
@@ -88,10 +89,10 @@ export default function Navbar() {
               </motion.div>
               <div className="flex flex-col leading-none">
                 <span className="text-xs sm:text-sm md:text-[15px] font-bold text-white tracking-tight">
-                  PaperInsight
+                  ScholarRAG
                 </span>
                 <span className="text-[7px] sm:text-[8px] md:text-[10px] text-gray-500 font-mono tracking-wider uppercase">
-                  Simple AI Assistant
+                  Research Intelligence
                 </span>
               </div>
             </Link>
@@ -102,6 +103,19 @@ export default function Navbar() {
               <NavLink href="/#features" active={false}>Features</NavLink>
               <NavLink href="/#how-it-works" active={false}>How it Works</NavLink>
             </nav>
+
+            {/* Desktop CTA - Hidden on mobile/tablet */}
+            <div className="hidden md:flex items-center gap-3">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                <Link 
+                  href="/chat" 
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-indigo-500/25"
+                >
+                  Launch Assistant 
+                  <ArrowIcon />
+                </Link>
+              </motion.div>
+            </div>
 
             {/* Mobile Menu Button - Visible on mobile/tablet */}
             <button
@@ -131,7 +145,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               aria-hidden="true"
             />
-
+            
             {/* Mobile Menu Panel */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -157,8 +171,18 @@ export default function Navbar() {
                 <MobileNavLink href="/#how-it-works" active={false} onClick={() => setMobileOpen(false)}>
                   How it Works
                 </MobileNavLink>
-
-
+                
+                {/* Mobile CTA */}
+                <div className="pt-3 mt-3 border-t border-white/[0.06]">
+                  <Link
+                    href="/chat"
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-all duration-200"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Launch Assistant
+                    <ArrowIcon />
+                  </Link>
+                </div>
               </nav>
             </motion.div>
           </>

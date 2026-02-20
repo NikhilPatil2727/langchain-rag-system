@@ -8,10 +8,10 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "PaperInsight — Simple Paper Assistant",
+  title: "ScholarRAG — AI-Powered Research Intelligence",
   description:
-    "Ask questions and get answers from your research papers using simple RAG technology.",
-  keywords: "Research, RAG, AI, PDF, LangChain, Semantic Search",
+    "Extract insights, synthesize knowledge, and find precisely what you need from complex research papers using advanced RAG technology.",
+  keywords: "Research, RAG, AI, Academic Search, Scholars, Gemini, Pinecone, Semantic Search",
 };
 
 export const viewport = {
