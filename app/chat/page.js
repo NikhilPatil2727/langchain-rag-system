@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { askQuestion } from '@/actions/chat';
 import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from '@/components/Navbar';
 
 const QuickActions = ({ onSelect }) => {
   const actions = [
@@ -114,13 +115,13 @@ const TypingIndicator = () => (
             className="w-2 h-2 rounded-full bg-indigo-400"
           />
         </div>
-        <span className="text-sm text-white/50">Thinking...</span>
+        <span className="text-sm text-white/50">Scholar is thinking...</span>
       </div>
     </div>
   </motion.div>
 );
 
-export default function ChatInterface() {
+function ChatInterface() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -227,10 +228,10 @@ export default function ChatInterface() {
               >
 
                 <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
-                  Research Paper QA
+                  Scholar Research System
                 </h1>
                 <p className="text-white/50 max-w-md mx-auto text-base leading-relaxed">
-                  Upload your papers and ask any questions. I'll find the answers for you.
+                  Query your research repository, analyze methodologies, and synthesize findings across multiple papers.
                 </p>
 
                 <QuickActions onSelect={(val) => handleSubmit(null, val)} />
@@ -289,16 +290,30 @@ export default function ChatInterface() {
           <div className="mt-3 flex items-center justify-between px-1">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Vector DB Online</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Citations Active</span>
+                <span className="text-xs text-white truncate uppercase tracking-wider font-medium">Vector DB Online</span>
               </div>
             </div>
-            <span className="text-xs text-white/20 font-mono">
+            <span className="text-xs text-white font-mono">
               PaperInsight Project
             </span>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <div className="flex flex-col h-screen bg-[#050507] overflow-hidden">
+      <Navbar />
+      
+      <div className="flex-1 flex flex-col pt-16 relative min-h-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="flex-1 flex flex-col min-h-0 relative z-10 h-full">
+          <ChatInterface />
         </div>
       </div>
     </div>
