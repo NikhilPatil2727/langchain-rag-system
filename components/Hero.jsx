@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 
 const ArrowIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -64,12 +65,32 @@ export default function Hero() {
 
           <motion.h1
             variants={itemVariants}
-            className="mt-8 text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-900 leading-[1.1] tracking-tight"
-            style={{ fontWeight: 900, maxWidth: '940px' }}
+            className="mt-8 flex flex-col items-center justify-center text-center tracking-tight px-4"
+            style={{ fontWeight: 800, maxWidth: '100%' }}
           >
-            <span className="gradient-text"> Chat With Research Papers</span>
-            <br />
-            <span className="gradient-text-accent text-indigo-500">Built with RAG & LangChain. </span>
+            <div className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-3 leading-[1.1]">
+              <TextGenerateEffect
+                words="Chat With"
+                className="text-white inline-block"
+              />
+              <span className="inline-block md:ml-4">
+                <TextGenerateEffect
+                  words="Research Papers"
+                  className="text-violet-400 inline-block"
+                />
+              </span>
+            </div>
+
+            <div className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl font-700 leading-tight">
+              <TextGenerateEffect
+                words="Built with"
+                className="text-white inline-block mr-3 sm:mr-4"
+              />
+              <TextGenerateEffect
+                words="RAG & LangChain."
+                className="text-sky-400 inline-block"
+              />
+            </div>
           </motion.h1>
 
           <motion.p

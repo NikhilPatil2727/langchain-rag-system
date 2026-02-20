@@ -52,7 +52,7 @@ export default function HomePage() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 md:mb-5 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent px-4">
               How it Works
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-[90%] sm:max-w-[520px] mx-auto px-4">
+            <p className="text-sm sm:text-base md:text-lg text-indigo-100/60 max-w-[90%] sm:max-w-[520px] mx-auto px-4">
               A straightforward process to get answers from your documents.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function HomePage() {
                 <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-xs sm:text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors">
+                <p className="text-xs sm:text-sm leading-relaxed text-indigo-50/50 group-hover:text-white transition-colors">
                   {step.description}
                 </p>
               </motion.div>
@@ -156,7 +156,7 @@ export default function HomePage() {
               </Link>
             </nav>
 
-            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500">
+            <div className="text-xs sm:text-sm text-center sm:text-right text-indigo-200/40">
               © 2024 PaperInsight. <br className="block xs:hidden" />
               Built for simple research paper QA.
             </div>

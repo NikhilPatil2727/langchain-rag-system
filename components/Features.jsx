@@ -139,7 +139,7 @@ export default function Features() {
               Research Tools
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-[90%] sm:max-w-[480px] md:max-w-[520px] mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-indigo-100/70 max-w-[90%] sm:max-w-[480px] md:max-w-[520px] mx-auto">
             Everything you need to interact with your research papers
             without the technical headache.
           </p>
@@ -169,7 +169,7 @@ export default function Features() {
               <h3 className="text-sm sm:text-base md:text-lg font-semibold mb-2 text-white group-hover:text-indigo-400 transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-xs sm:text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors">
+              <p className="text-xs sm:text-sm leading-relaxed text-indigo-50/60 group-hover:text-white transition-colors">
                 {feature.description}
               </p>
 
