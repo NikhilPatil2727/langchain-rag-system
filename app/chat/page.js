@@ -1,22 +1,18 @@
+'use client';
+
 import Navbar from '@/components/Navbar';
 import ChatInterface from '@/components/ChatInterface';
 
 export default function ChatPage() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-[#050507] overflow-hidden">
       <Navbar />
-      <div className="flex-1 flex flex-col bg-gray-50">
-        <div className="bg-white border-b border-gray-200 py-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Node.js Documentation Assistant
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Ask any question about Node.js and get instant answers
-            </p>
-          </div>
-        </div>
-        <div className="flex-1 overflow-hidden">
+      
+      <div className="flex-1 flex flex-col pt-16 relative">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="flex-1 flex flex-col min-h-0 relative z-10">
           <ChatInterface />
         </div>
       </div>
