@@ -13,29 +13,126 @@ const QuickActions = ({ onSelect }) => {
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 mt-6 justify-center px-4">
+    <div className="flex flex-wrap gap-2 mt-8 justify-center px-4">
       {actions.map((action, i) => (
-        <button
+        <motion.button
           key={i}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.1 }}
           onClick={() => onSelect(action.label)}
-          className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-indigo-500/30 text-xs font-medium text-white/60 hover:text-white transition-all duration-200"
+          className="group px-4 py-2.5 rounded-full bg-white/[0.02] border border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/5 text-sm font-medium text-white/70 hover:text-white transition-all duration-200 flex items-center gap-2"
         >
-          {action.label}
-        </button>
+          <span>{action.label}</span>
+        </motion.button>
       ))}
     </div>
   );
 };
 
+const MessageBubble = ({ message }) => {
+  const isUser = message.role === 'user';
+  const isError = message.isError;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={`flex w-full gap-4 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+    >
+      {/* Avatar */}
+      <div className="flex-shrink-0 mt-1">
+        <div className={`
+          w-8 h-8 rounded-xl flex items-center justify-center font-medium text-sm
+          ${isUser
+            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+            : isError
+              ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+              : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+          }
+        `}>
+          {isUser ? 'U' : 'S'}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className={`flex flex-col gap-1.5 max-w-[85%] sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
+        <div className={`
+          relative px-5 py-3.5 rounded-2xl text-[15px] leading-relaxed
+          ${isUser
+            ? 'bg-indigo-600 text-white rounded-tr-none'
+            : isError
+              ? 'bg-red-500/10 text-red-200 border border-red-500/20 rounded-tl-none'
+              : 'bg-white/[0.04] text-white border border-white/10 rounded-tl-none'
+          }
+        `}>
+          <p className="whitespace-pre-wrap break-words">{message.content}</p>
+
+          {/* Footer */}
+          <div className="mt-3 flex items-center justify-end gap-3">
+            {message.sources > 0 && (
+              <span className="text-[11px] font-medium text-indigo-300/80 bg-indigo-500/10 px-2 py-1 rounded-md">
+                {message.sources} {message.sources === 1 ? 'source' : 'sources'}
+              </span>
+            )}
+            <span className={`text-[10px] font-medium ${isUser ? 'text-indigo-200' : 'text-white/40'}`}>
+              {message.timestamp}
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const TypingIndicator = () => (
+  <motion.div
+    initial={{ opacity: 0, x: -10 }}
+    animate={{ opacity: 1, x: 0 }}
+    className="flex gap-4"
+  >
+    <div className="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-medium text-sm">
+      S
+    </div>
+    <div className="bg-white/[0.04] border border-white/10 rounded-2xl rounded-tl-none px-5 py-4">
+      <div className="flex items-center gap-2">
+        <div className="flex gap-1.5">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 1.5, delay: 0 }}
+            className="w-2 h-2 rounded-full bg-indigo-400"
+          />
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }}
+            className="w-2 h-2 rounded-full bg-indigo-400"
+          />
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }}
+            className="w-2 h-2 rounded-full bg-indigo-400"
+          />
+        </div>
+        <span className="text-sm text-white/50">Scholar is thinking...</span>
+      </div>
+    </div>
+  </motion.div>
+);
+
 export default function ChatInterface() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const bottomRef = useRef(null);
+  const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    scrollToBottom();
   }, [messages, isLoading]);
 
   const handleSubmit = async (e, customInput) => {
@@ -49,9 +146,14 @@ export default function ChatInterface() {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+
+    // Auto-resize textarea
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+    }
 
     try {
       const result = await askQuestion(finalInput);
@@ -61,13 +163,13 @@ export default function ChatInterface() {
         sources: result.sources,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
-      setMessages((prev) => [...prev, assistantMessage]);
+      setMessages(prev => [...prev, assistantMessage]);
     } catch {
-      setMessages((prev) => [
+      setMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          content: 'The research engine encountered an error. This may be due to complex paper structure or connectivity issue.',
+          content: 'Unable to process your request. Please try again or rephrase your question.',
           isError: true,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
@@ -77,169 +179,125 @@ export default function ChatInterface() {
     }
   };
 
+  const handleTextareaChange = (e) => {
+    setInput(e.target.value);
+    // Auto-resize
+    e.target.style.height = 'auto';
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <div className="flex flex-col h-full bg-[#050507]">
-      {/* Messages Window */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 md:py-10 space-y-6 md:space-y-10 scroll-smooth no-scrollbar">
-        <div className="max-w-4xl mx-auto">
-          <AnimatePresence initial={false}>
-            {messages.length === 0 && !isLoading && (
+    <div className="flex flex-col h-full bg-[#0A0A0F] min-h-0">
+      {/* Custom Premium Scrollbar Styles */}
+      <style jsx global>{`
+        .chat-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          transition: all 0.2s;
+        }
+        .chat-scrollbar:hover::-webkit-scrollbar-thumb {
+          background: rgba(99, 102, 241, 0.3);
+        }
+      `}</style>
+
+      {/* Messages Container */}
+      <div className="flex-1 overflow-y-auto chat-scrollbar min-h-0">
+        <div className="max-w-4xl mx-auto px-4 py-6 md:py-8 space-y-6">
+          <AnimatePresence mode="wait">
+            {messages.length === 0 && !isLoading ? (
               <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center min-h-[40vh] text-center"
+                key="welcome"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center min-h-[60vh] text-center"
               >
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-indigo-500/20 blur-[40px] rounded-full animate-pulse" />
-                  
-                </div>
-                <h2 className="text-2xl font-bold text-white mb-3 tracking-tight">Scholar Research System</h2>
-                <p className="text-[15px] text-white/40 max-w-sm mx-auto leading-relaxed text-sm">
-                  Start your inquiry into your local research repository.
-                  I can synthesize cross-paper findings and extract methodologies.
+
+                <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
+                  Scholar Research System
+                </h1>
+                <p className="text-white/50 max-w-md mx-auto text-base leading-relaxed">
+                  Query your research repository, analyze methodologies, and synthesize findings across multiple papers.
                 </p>
+
                 <QuickActions onSelect={(val) => handleSubmit(null, val)} />
               </motion.div>
-            )}
-
-            {messages.map((message, index) => (
+            ) : (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className={`flex w-full gap-4 sm:gap-6 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+                key="messages"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="space-y-6"
               >
-                {/* Initial */}
-                <div className="flex-shrink-0 mt-1">
-                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 font-bold text-xs ${message.role === 'user'
-                    ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 text-white'
-                    : message.isError
-                      ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                      : 'bg-white/[0.03] text-indigo-400 border border-white/10 group-hover:border-indigo-500/30'
-                    }`}>
-                    {message.role === 'user' ? 'U' : 'S'}
-                  </div>
-                </div>
+                {messages.map((message, index) => (
+                  <MessageBubble key={index} message={message} />
+                ))}
 
-                {/* Content Area */}
-                <div className={`flex flex-col gap-2 max-w-[85%] sm:max-w-[80%] ${message.role === 'user' ? 'items-end' : 'items-start'}`}>
-                  {/* Bubble */}
-                  <div className={`relative px-5 py-4 rounded-2xl group transition-all duration-300 ${message.role === 'user'
-                    ? 'bg-indigo-600 text-white rounded-tr-none shadow-[0_4px_20px_rgba(79,70,229,0.15)]'
-                    : message.isError
-                      ? 'bg-red-500/10 text-red-100 border border-red-500/20 rounded-tl-none font-medium'
-                      : 'bg-white/[0.03] text-white/90 border border-white/[0.08] rounded-tl-none hover:bg-white/[0.05] hover:border-white/10'
-                    }`}>
-                    <div className="text-[14.5px] leading-relaxed selection:bg-indigo-500/50">
-                      <p className="whitespace-pre-wrap">{message.content}</p>
-                    </div>
-
-                    {/* Meta Footer */}
-                    <div className="mt-4 flex items-center justify-between gap-4">
-                      {message.sources > 0 && (
-                        <div className="flex items-center gap-2 py-1 px-2.5 rounded-lg bg-white/5 border border-white/5 transition-colors group-hover:border-indigo-500/20">
-                          <span className="text-[10px] font-semibold text-indigo-300/80 uppercase tracking-wider">
-                            {message.sources} Sources Identified
-                          </span>
-                        </div>
-                      )}
-                      <span className={`text-[10px] sm:text-[11px] font-medium opacity-30 ${message.role === 'user' ? 'text-white' : 'text-white/60'}`}>
-                        {message.timestamp}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-
-            {isLoading && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex gap-4 sm:gap-6"
-              >
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-indigo-400 font-bold text-xs">
-                  S
-                </div>
-                <div className="flex flex-col gap-3 py-2">
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-1.5 p-1">
-                      <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }} className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                      <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                      <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                    </div>
-                    <span className="text-[11px] font-medium text-white/40 uppercase tracking-[0.15em] animate-pulse">
-                      Synthesizing evidence...
-                    </span>
-                  </div>
-                </div>
+                {isLoading && <TypingIndicator />}
               </motion.div>
             )}
           </AnimatePresence>
+          <div ref={messagesEndRef} className="h-4" />
         </div>
-        <div ref={bottomRef} className="h-4" />
       </div>
 
-      {/* Control Tray */}
-      <div className="relative border-t border-white/[0.08] bg-[#050507]/80 backdrop-blur-2xl p-4 sm:p-6 lg:p-10">
-        <div className="max-w-4xl mx-auto">
-          <form
-            onSubmit={(e) => handleSubmit(e)}
-            className="relative flex items-end gap-3"
-          >
-            <div className="relative flex-1 group shadow-[0_10px_40px_-15px_rgba(0,0,0,0.5)]">
+      {/* Input Area */}
+      <div className="border-t border-white/10 bg-[#0A0A0F]">
+        <div className="max-w-4xl mx-auto p-4">
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-2xl p-1.5 focus-within:border-indigo-500/40 focus-within:bg-white/[0.05] transition-all shadow-xl shadow-black/20">
               <textarea
                 ref={inputRef}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSubmit(e);
-                  }
-                }}
-                className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl sm:rounded-3xl px-6 py-4 sm:py-5 pr-16 text-[14.5px] sm:text-[15.5px] text-white placeholder:text-white/20 focus:outline-none focus:border-indigo-500/40 focus:bg-white/[0.05] transition-all min-h-[56px] sm:min-h-[64px] max-h-48 scrollbar-hide resize-none leading-relaxed"
-                placeholder="Query papers, compare methodologies, or ask for summaries..."
+                onChange={handleTextareaChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask about papers, compare studies, or request analysis..."
+                className="flex-1 bg-transparent border-none px-4 py-2.5 text-white placeholder:text-white/30 text-base focus:outline-none resize-none overflow-hidden min-h-[44px] max-h-[120px] leading-relaxed"
                 rows={1}
+                disabled={isLoading}
               />
-
-              <div className="absolute right-2.5 bottom-2.5 sm:right-3 sm:bottom-3 flex items-center gap-3">
-                <AnimatePresence>
-                  {input.trim() && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="hidden sm:inline-block text-[10px] font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1.5 rounded-lg border border-indigo-500/10 tracking-tight"
-                    >
-                      ENTER TO SEARCH
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-
-                <button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  className={`px-4 py-2 rounded-xl sm:rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 ${input.trim() && !isLoading
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-[0_10px_20px_-5px_rgba(99,102,241,0.4)] hover:scale-[1.05] active:scale-[0.95]'
-                    : 'bg-white/5 text-white/10 cursor-not-allowed opacity-50'
-                    }`}
-                >
-                  Send
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading || !input.trim()}
+                className={`
+                  h-11 px-6 rounded-xl text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center
+                  ${input.trim() && !isLoading
+                    ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25 active:scale-95'
+                    : 'bg-white/5 text-white/10 cursor-not-allowed'
+                  }
+                `}
+              >
+                Send
+              </button>
             </div>
           </form>
 
-          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 px-4">
-            <div className="flex items-center gap-4 text-[10px] mono text-white/20 uppercase tracking-widest font-semibold">
-              <span className="flex items-center gap-1.5"><div className="w-1 h-1 rounded-full bg-green-500" /> Vector Database Online</span>
-              <span className="flex items-center gap-1.5"><div className="w-1 h-1 rounded-full bg-indigo-500" /> Citation Tracking Enabled</span>
+          {/* Status Bar */}
+          <div className="mt-3 flex items-center justify-between px-1">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Vector DB Online</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Citations Active</span>
+              </div>
             </div>
-            <p className="text-[10px] text-white/30 font-medium">
-              ScholarRAG v1.4.2 · Secure Multi-Paper Synthesis
-            </p>
+            <span className="text-xs text-white/20 font-mono">
+              ScholarRAG v1.4.2
+            </span>
           </div>
         </div>
       </div>
