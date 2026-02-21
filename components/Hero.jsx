@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { WavyBackground } from '@/components/ui/wavy-background';
+import { NoiseBackground } from '@/components/ui/noise-background';
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import { TypeAnimation } from 'react-type-animation';
 
 const ArrowIcon = () => (
@@ -110,16 +112,33 @@ export default function Hero() {
               without the extra complexity.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
-                <Link href="/chat" className="btn-primary w-full justify-center" style={{ padding: '14px 32px', fontSize: '0.95rem' }}>
-                  Open Chat <ArrowIcon />
-                </Link>
+            <motion.div variants={itemVariants} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full px-4">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-auto">
+                <NoiseBackground
+                  containerClassName="rounded-full p-px bg-transparent shadow-lg"
+                  className="bg-black/50 hover:bg-black/40 transition-colors rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 flex items-center justify-center gap-2"
+                  gradientColors={["#a855f7", "#6366f1", "#0ea5e9"]}
+                  noiseIntensity={0.4}
+                  speed={0.2}
+                >
+                  <Link
+                    href="/chat"
+                    className="text-white text-sm sm:text-base font-bold flex items-center justify-center gap-2 whitespace-nowrap"
+                  >
+                    Open Chat <ArrowIcon />
+                  </Link>
+                </NoiseBackground>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
-                <Link href="#features" className="btn-secondary w-full justify-center" style={{ padding: '14px 32px', fontSize: '0.95rem' }}>
-                  <BookIcon /> View Features
-                </Link>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-auto">
+                <HoverBorderGradient
+                  as={Link}
+                  href="#features"
+                  containerClassName="rounded-full"
+                  className="bg-black text-white flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-3 sm:py-3.5"
+                >
+                  <BookIcon />
+                  <span className="text-sm sm:text-base font-bold">View Features</span>
+                </HoverBorderGradient>
               </motion.div>
             </motion.div>
 
