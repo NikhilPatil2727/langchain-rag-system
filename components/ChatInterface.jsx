@@ -159,7 +159,7 @@ export default function ChatInterface() {
       const result = await askQuestion(finalInput);
       const assistantMessage = {
         role: 'assistant',
-        content: result.answer,
+        content: result.answer.replace(/\*\*/g, ''),
         sources: result.sources,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
@@ -226,12 +226,29 @@ export default function ChatInterface() {
                 className="flex flex-col items-center justify-center min-h-[60vh] text-center"
               >
 
-                <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
-                  Scholar Research System
-                </h1>
-                <p className="text-white/50 max-w-md mx-auto text-base leading-relaxed">
-                  Query your research repository, analyze methodologies, and synthesize findings across multiple papers.
-                </p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="flex flex-col items-center"
+                >
+                  <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
+                    Chat with <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-200 to-cyan-400">Research Paper</span>
+                  </h1>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-white/20" />
+                    <p className="text-white/40 text-sm md:text-base font-medium uppercase tracking-[0.2em]">
+                      Built with <span className="text-white/70">RAG</span> & <span className="text-white/70">LangChain</span>
+                    </p>
+                    <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-white/20" />
+                  </motion.div>
+                </motion.div>
 
                 <QuickActions onSelect={(val) => handleSubmit(null, val)} />
               </motion.div>
@@ -255,33 +272,41 @@ export default function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-white/10 bg-[#0A0A0F]">
-        <div className="max-w-4xl mx-auto p-4">
+      <div className="relative border-t border-white/10 bg-[#0A0A0F]/80 backdrop-blur-xl">
+        {/* Animated Glow Backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/5 to-transparent pointer-events-none" />
+
+        <div className="max-w-4xl mx-auto p-4 relative">
           <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-2xl p-1.5 focus-within:border-indigo-500/40 focus-within:bg-white/[0.05] transition-all shadow-xl shadow-black/20">
-              <textarea
-                ref={inputRef}
-                value={input}
-                onChange={handleTextareaChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask about papers, compare studies, or request analysis..."
-                className="flex-1 bg-transparent border-none px-4 py-2.5 text-white placeholder:text-white/30 text-base focus:outline-none resize-none overflow-hidden min-h-[44px] max-h-[120px] leading-relaxed"
-                rows={1}
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={isLoading || !input.trim()}
-                className={`
+            <div className="relative group">
+              {/* Animated Border Gradient */}
+              <div className="absolute -inset-[1px] bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-indigo-500/20 rounded-[17px] opacity-20 group-focus-within:opacity-100 blur-[2px] transition-all duration-500" />
+
+              <div className="relative flex items-center gap-2 bg-[#0D0D14] border border-indigo-500/40 rounded-2xl p-1.5 focus-within:border-indigo-500/60 focus-within:bg-[#12121A] transition-all duration-300 shadow-2xl shadow-black/40">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={handleTextareaChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask about papers, compare studies, or request analysis..."
+                  className="flex-1 bg-transparent border-none px-4 py-2.5 text-white placeholder:text-white/30 text-base focus:outline-none resize-none overflow-hidden min-h-[44px] max-h-[120px] leading-relaxed"
+                  rows={1}
+                  disabled={isLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  className={`
                   h-11 px-6 rounded-xl text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center
                   ${input.trim() && !isLoading
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25 active:scale-95'
-                    : 'bg-white/5 text-white/10 cursor-not-allowed'
-                  }
+                      ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25 active:scale-95'
+                      : 'bg-white/5 text-white/10 cursor-not-allowed'
+                    }
                 `}
-              >
-                Send
-              </button>
+                >
+                  Send
+                </button>
+              </div>
             </div>
           </form>
 
@@ -289,15 +314,11 @@ export default function ChatInterface() {
           <div className="mt-3 flex items-center justify-between px-1">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Vector DB Online</span>
+                <span className="text-xs text-white truncate uppercase tracking-wider font-medium">Vector DB Online</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs text-white/30 truncate uppercase tracking-wider font-medium">Citations Active</span>
-              </div>
+
             </div>
-            <span className="text-xs text-white/20 font-mono">
-              ScholarRAG v1.4.2
-            </span>
+
           </div>
         </div>
       </div>

@@ -101,7 +101,7 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 sm:mb-6 text-white px-2">
               Ready to <br className="hidden xs:block sm:hidden" />
               <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                chat with papers?
+                Research Papers?
               </span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-indigo-200/70 mb-6 sm:mb-8 md:mb-10 max-w-[90%] sm:max-w-xl mx-auto px-4">
@@ -116,7 +116,7 @@ export default function HomePage() {
                 href="/chat"
                 className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl sm:rounded-2xl hover:from-indigo-500 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-indigo-500/25"
               >
-                Open Chat 
+                Research Paper 
                 <ArrowIcon />
               </Link>
             </motion.div>
@@ -129,9 +129,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-8">
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center font-bold text-white text-sm sm:text-base">
-                R
-              </div>
+
               <span className="font-bold tracking-tight text-white italic text-sm sm:text-base">
                 PaperInsight
               </span>
@@ -157,7 +155,7 @@ export default function HomePage() {
             </nav>
 
             <div className="text-xs sm:text-sm text-center sm:text-right text-indigo-200/40">
-              © 2024 PaperInsight. <br className="block xs:hidden" />
+              ©{new Date().getFullYear()} PaperInsight. <br className="block xs:hidden" />
               Built for simple research paper QA.
             </div>
           </div>
