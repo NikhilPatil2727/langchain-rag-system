@@ -1,4 +1,4 @@
-	'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -90,8 +90,8 @@ export default function Navbar() {
                 <span className="text-xs sm:text-sm md:text-[15px] font-bold text-white tracking-tight">
                   PaperInsight
                 </span>
-                <span className="text-[7px] sm:text-[8px] md:text-[10px] text-gray-500 font-mono tracking-wider uppercase">
-                  Simple AI Assistant
+                <span className="text-[7px] sm:text-[8px] md:text-[10px] text-indigo-400 font-mono tracking-wider uppercase">
+                  Built with RAG & LangChain
                 </span>
               </div>
             </Link>
