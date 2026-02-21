@@ -107,9 +107,8 @@ export default function Hero() {
               className="mt-6 text-base sm:text-lg md:text-xl leading-relaxed px-4 font-sans"
               style={{ color: 'white', maxWidth: '640px' }}
             >
-              I built this project to help you chat with research papers.
-              It uses LangChain and RAG to find answers directly from your PDF files
-              without the extra complexity.
+              I built this project to chat with research papers more easily.
+It uses LangChain and RAG to find answers directly from my PDF files without unnecessary complexity.
             </motion.p>
 
             <motion.div variants={itemVariants} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full px-4">
