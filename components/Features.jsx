@@ -44,59 +44,52 @@ const FastIcon = () => (
 const features = [
   {
     Icon: SearchIcon,
-    title: 'Recursive Chunking',
-    description: 'Documents are precisely split into overlapping chunks to maintain context for retrieval.',
+    title: 'Embeddings',
+    description: 'Each chunk is converted into vector embeddings. This allows the system to understand semantic meaning, not just keyword matching.',
     color: '#6366f1',
     bg: 'rgba(99,102,241,0.1)',
   },
   {
-    Icon: FastIcon,
-    title: 'Vector DB Storage',
-    description: 'High-dimensional embeddings are stored in a vector database for lightning-fast similarity search.',
+    Icon: LibraryIcon,
+    title: 'Vector Database',
+    description: 'All embeddings are stored in a vector database. When a question is asked, the system finds the most relevant chunks using similarity search.',
     color: '#ec4899',
     bg: 'rgba(236,72,153,0.1)',
   },
   {
-    Icon: BrainIcon,
-    title: 'Semantic Search',
-    description: 'Queries are matched based on meaning rather than just keywords using advanced embeddings.',
+    Icon: QuoteIcon,
+    title: 'Retrieval-Augmented Generation (RAG)',
+    description: 'Instead of generating answers blindly, the model first retrieves relevant context from the paper. Then it generates a response based only on that retrieved content.',
     color: '#8b5cf6',
     bg: 'rgba(139,92,246,0.1)',
   },
   {
-    Icon: QuoteIcon,
-    title: 'Grounding & Citations',
-    description: 'Every answer is grounded in retrieved chunks with direct references back to the source.',
+    Icon: BrainIcon,
+    title: 'Context-Based Responses',
+    description: 'Answers are generated from the actual research paper content. This reduces hallucination and keeps responses grounded in the document.',
     color: '#06b6d4',
     bg: 'rgba(6,182,212,0.1)',
   },
   {
-    Icon: ShieldIcon,
-    title: 'RAG Pipeline',
-    description: 'A robust Retrieval-Augmented Generation pipeline prevents hallucinations by using provided data.',
+    Icon: FastIcon,
+    title: 'Simple Question Interface',
+    description: 'You can ask questions in natural language and get answers directly from the uploaded paper.',
     color: '#f59e0b',
     bg: 'rgba(245,158,11,0.1)',
-  },
-  {
-    Icon: LibraryIcon,
-    title: 'Multi-PDF Support',
-    description: 'The system can process multiple research papers simultaneously as a single knowledge base.',
-    color: '#10b981',
-    bg: 'rgba(16,185,129,0.1)',
   },
 ];
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -107,17 +100,17 @@ export default function Features() {
     <section
       id="features"
       ref={ref}
-      className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
       style={{ background: 'var(--bg-secondary)' }}
     >
       <div className="section-divider" />
 
-      {/* Background Gradient - Responsive sizing */}
+      {/* Enhanced Background Gradient */}
       <div
-        className="absolute top-1/2 left-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[200px] sm:h-[300px] md:h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        className="absolute top-1/2 left-1/2 w-full max-w-[1000px] h-[400px] sm:h-[600px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-50"
         style={{
-          background: 'radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%)',
-          filter: 'blur(40px) sm:blur-50px md:blur-60px'
+          background: 'radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.03) 40%, transparent 70%)',
+          filter: 'blur(60px)'
         }}
       />
 
@@ -127,57 +120,63 @@ export default function Features() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-12 sm:mb-14 md:mb-16 px-4 sm:px-6"
+          className="text-center mb-16 sm:mb-20 md:mb-24 px-4 sm:px-6"
         >
-          <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium bg-indigo-500/10 text-indigo-400 rounded-full mb-4 sm:mb-5">
-            Key Features
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4 md:mb-5 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Simple and Powerful
-            <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Research Tools
-            </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-100 to-white bg-clip-text text-transparent">
+            Features
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-indigo-100/70 max-w-[90%] sm:max-w-[480px] md:max-w-[520px] mx-auto">
-            Everything you need to interact with your research papers
-            without the technical headache.
-          </p>
         </motion.div>
 
         {/* Features Grid */}
         <motion.div
           variants={containerVariants}
+          initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 px-4 sm:px-0"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-0"
         >
           {features.map((feature, i) => (
             <motion.div
               key={i}
               variants={cardVariants}
-              className="relative group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20 cursor-pointer"
+              whileHover={{ y: -8 }}
+              className="group relative flex flex-col h-full rounded-2xl bg-white/[0.02] border border-white/[0.05] p-6 sm:p-8 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.04] hover:border-indigo-500/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer overflow-hidden"
             >
+              {/* Subtle hover glow effect behind icon */}
+              <div
+                className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none blur-2xl"
+                style={{ background: feature.color }}
+              />
+
               {/* Icon Box */}
               <div
-                className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110"
-                style={{ background: feature.bg, color: feature.color }}
+                className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 relative z-10"
+                style={{
+                  background: feature.bg,
+                  color: feature.color,
+                  border: `1px solid ${feature.color}30`
+                }}
               >
                 <feature.Icon />
               </div>
 
-              {/* Content */}
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold mb-2 text-white group-hover:text-indigo-400 transition-colors">
+              {/* Content text strictly untouched, only styling wrapped around it */}
+              <h3 className="text-lg sm:text-xl font-bold mb-3 text-white transition-colors relative z-10">
                 {feature.title}
               </h3>
-              <p className="text-xs sm:text-sm leading-relaxed text-indigo-50/60 group-hover:text-white transition-colors">
+              <p className="text-sm sm:text-base leading-relaxed text-indigo-50/70 group-hover:text-indigo-50/90 transition-colors relative z-10 flex-grow">
                 {feature.description}
               </p>
 
-              {/* Accent Dot - Hidden on mobile, visible on larger screens */}
-              <div
-                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block"
-                style={{ background: feature.color }}
-              />
+              {/* Bottom Element */}
+              <div className="mt-8 pt-5 border-t border-white/5 flex items-center justify-between relative z-10">
+                <span className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-white/30 group-hover:text-white/50 transition-colors">
+                  Available Module
+                </span>
+                <div
+                  className="w-2 h-2 rounded-full opacity-30 group-hover:opacity-100 transition-all duration-300"
+                  style={{ background: feature.color, boxShadow: `0 0 10px ${feature.color}` }}
+                />
+              </div>
             </motion.div>
           ))}
         </motion.div>
