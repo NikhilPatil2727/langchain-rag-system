@@ -1,80 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📄 Research Paper RAG
 
-## Getting Started
+A simple Retrieval-Augmented Generation (RAG) system built to interact with research papers.
 
-First, run the development server:
+Instead of manually scrolling through long PDFs, this project allows asking questions directly from the document and getting context-aware answers using embeddings and vector search.
+
+---
+
+## 🚀 Features
+
+- 📄 Process research paper PDFs
+- ✂️ Intelligent text chunking
+- 🔎 Semantic search using embeddings
+- 🧠 Context-aware answers using LLM
+- ⚡ Fast retrieval with vector database
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** Next.js
+- **Backend:** Next.js API Routes
+- **LLM Framework:** LangChain
+- **Architecture:** RAG (Retrieval-Augmented Generation)
+- **Vector Database:** Pinecone (or mention what you used)
+- **Embeddings:** OpenAI Embeddings
+- **LLM:** OpenAI GPT Model
+
+---
+
+## 🧠 How It Works
+
+PDF → Text Chunking → Embeddings → Vector Store → Similarity Search → LLM → Final Answer
+
+1. The research paper PDF is loaded.
+2. Text is split into manageable chunks.
+3. Embeddings are generated for each chunk.
+4. Embeddings are stored in a vector database.
+5. User asks a question.
+6. Relevant chunks are retrieved using similarity search.
+7. The LLM generates an answer using retrieved context.
+
+---
+
+## 🎯 Why I Built This
+
+I built this project for myself to better understand research papers without manually searching through long documents.
+
+This helped me understand:
+
+- How embeddings work
+- How vector search retrieves context
+- How RAG pipelines are structured
+- How LLMs generate grounded responses
+
+---
+
+## 🔮 Future Improvements
+
+- Improve chunking strategy
+- Add streaming responses
+- Multi-document support
+- Improve retrieval accuracy
+- Add citation support
+
+---
+
+## ⚙️ Setup Instructions
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
-
-
-
-rag-nextjs-app/
-├── 📁 app/                    # Next.js App Router
-│   ├── layout.jsx            # Root layout
-│   ├── page.jsx              # Home page (Hero, Features, CTA)
-│   ├── globals.css           # Tailwind styles
-│   └── chat/
-│       └── page.jsx          # Chat interface page
-│
-├── 📁 components/            # Reusable UI components
-│   ├── Navbar.jsx           # Navigation bar with logo
-│   ├── Hero.jsx             # Landing page hero
-│   ├── Features.jsx         # 6 feature cards
-│   └── ChatInterface.jsx    # Interactive chat UI
-│
-├── 📁 actions/              # Server Actions (no API routes!)
-│   ├── indexing.js         # PDF indexing action
-│   └── chat.js             # Chat query action
-│
-├── 📁 lib/                  # Shared utilities
-│   └── config.js           # AI model configs
-│
-├── 📁 scripts/              # CLI scripts
-│   └── index-pdf.js        # Standalone indexing
-│
-├── 📁 public/               # Static files
-│   └── README.txt          # Place Node.pdf here!
-│
-├── Config Files
-│   ├── package.json        # Dependencies
-│   ├── .env.local         # API keys (fill this!)
-│   ├── next.config.js     # Next.js config
-│   ├── tailwind.config.js # Tailwind theme
-│   └── .gitignore         # Git rules
-│
-└── Documentation
-    ├── START_HERE.md      # 👈 Read this first!
-    ├── README.md          # Full documentation
-    ├── SETUP.md           # Quick setup guide
-    └── FILE_STRUCTURE.md  # Detailed structure
+git clone https://github.com/your-username/research-paper-rag.git
+cd research-paper-rag
+npm install
