@@ -15,23 +15,23 @@ const ArrowIcon = () => (
 const steps = [
   {
     number: '01',
-    title: 'Ingestion Phase',
-    description: 'Simply upload your PDF research papers to the system.',
+    title: 'Chunking Phase',
+    description: 'The research paper is divided into smaller text chunks. This makes it easier to process and search specific parts of the document.',
   },
   {
     number: '02',
-    title: 'Chunking & Vector DB',
-    description: 'The system splits documents into chunks and stores them in a vector database.',
+    title: 'Indexing Phase',
+    description: 'Each chunk is converted into embeddings. These embeddings are stored in a vector database for similarity search.',
   },
   {
     number: '03',
-    title: 'Retrieval & Query',
-    description: 'Just type what you want to know and the system retrieves relevant chunks.',
+    title: 'Query Phase',
+    description: 'When I ask a question, the system converts the question into an embedding. It then searches the vector database to find the most relevant chunks.',
   },
   {
     number: '04',
-    title: 'Generation Phase',
-    description: 'Get clear answers with direct references based on the retrieved data.',
+    title: 'Response Phase',
+    description: 'The retrieved chunks are passed to the language model. The model generates an answer based only on the selected content from the paper.',
   },
 ];
 
@@ -43,39 +43,72 @@ export default function HomePage() {
       <Features />
 
       {/* How it Works Section */}
-      <section id="how-it-works" className="py-16 md:py-20 lg:py-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16 lg:mb-20">
-            <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium bg-indigo-500/10 text-indigo-400 rounded-full mb-4 md:mb-5">
-              4 Simple Steps
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 md:mb-5 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent px-4">
-              How it Works
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-indigo-100/60 max-w-[90%] sm:max-w-[520px] mx-auto px-4">
-              A straightforward process to get answers from your documents.
-            </p>
+      <section id="how-it-works" className="py-24 sm:py-32 relative overflow-hidden bg-[#07070a]">
+        {/* Dynamic Background Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_70%)]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20 md:mb-28">
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-block px-4 py-1.5 text-xs font-bold tracking-widest uppercase bg-indigo-500/10 text-indigo-400 rounded-lg mb-6"
+            >
+              Methodology
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-8 text-white"
+            >
+              How it <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent italic">Works</span>
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg md:text-xl text-indigo-100/50 max-w-2xl mx-auto leading-relaxed"
+            >
+              A high-precision RAG pipeline optimized for 
+              single-document research and discovery.
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-4 sm:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {steps.map((step, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="relative p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 hover:border-indigo-500/20 group cursor-pointer"
+                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative cursor-pointer"
               >
-                <div className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 md:mb-6 font-mono text-indigo-600/30 group-hover:text-indigo-500/50 transition-colors">
-                  {step.number}
+                {/* Connector Line (Desktop) */}
+                {i < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-[2.5rem] left-[calc(100%-1rem)] w-full h-[1px] bg-gradient-to-r from-indigo-500/20 to-transparent z-0" />
+                )}
+
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-8 group-hover:bg-indigo-500/20 group-hover:border-indigo-500/40 transition-all duration-300">
+                    <span className="text-xl font-bold font-mono text-indigo-400">
+                      {step.number}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:text-indigo-300 transition-colors">
+                    {step.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-indigo-100/40 group-hover:text-indigo-100/60 transition-colors">
+                    {step.description}
+                  </p>
                 </div>
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
-                  {step.title}
-                </h3>
-                <p className="text-xs sm:text-sm leading-relaxed text-indigo-50/50 group-hover:text-white transition-colors">
-                  {step.description}
-                </p>
               </motion.div>
             ))}
           </div>
